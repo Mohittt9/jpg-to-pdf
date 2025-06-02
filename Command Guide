@@ -1,0 +1,188 @@
+# 📚 JPG-to-PDF Bot: Command Guide
+
+Welcome! Here is a guide for each command your bot supports.  
+Use these commands in your Telegram chat with the bot.  
+**Tip:** You can always type `/help` in the bot to get a list of commands.
+
+---
+
+## 🏁 Basic Commands
+
+### `/start`
+**Description:**  
+Get a welcome message and brief instructions.
+
+**How to use:**  
+Just type `/start` or tap it in the commands menu.
+
+---
+
+### `/help`
+**Description:**  
+Show a list of all commands and a short description for each.
+
+**How to use:**  
+Type `/help`.
+
+---
+
+## 🏞️ Image & Session Management
+
+### `/list`
+**Description:**  
+List all images and text pages you have uploaded in this session.
+
+**How to use:**  
+Type `/list`.
+
+---
+
+### `/remove <n>`
+**Description:**  
+Remove the nth image or text page from your current session.
+
+**How to use:**  
+Type `/remove 2` to remove your second image/page.
+
+---
+
+### `/move <from> <to>`
+**Description:**  
+Change the order of your uploaded images/pages.
+
+**How to use:**  
+Type `/move 3 1` to move image/page #3 to position #1.
+
+---
+
+### `/endsession`
+**Description:**  
+Clear your session and delete all uploaded images/pages and settings.
+
+**How to use:**  
+Type `/endsession`.
+
+---
+
+## 🖼️ PDF Creation & Options
+
+### `/convert`
+**Description:**  
+Convert all your uploaded images and text pages into a single PDF and receive it in the chat.
+
+**How to use:**  
+After uploading images, type `/convert`.
+
+---
+
+### `/title <title>`
+**Description:**  
+Set the title of your resulting PDF.
+
+**How to use:**  
+Type `/title My Trip to Paris`.
+
+---
+
+### `/watermark <text>`
+**Description:**  
+Add a watermark text to all pages in your PDF.
+
+**How to use:**  
+Type `/watermark Confidential`.
+
+---
+
+### `/addtext <text>`
+**Description:**  
+Add a new page containing only text to your PDF.
+
+**How to use:**  
+Type `/addtext This is a notes page`.
+
+---
+
+### `/options`
+**Description:**  
+Set PDF options like page size or orientation via interactive buttons.
+
+**How to use:**  
+Type `/options` and tap the button for your choice.
+
+---
+
+### `/password <pwd>`
+**Description:**  
+Protect your PDF with a password.
+
+**How to use:**  
+Type `/password mysecret`.
+
+---
+
+## 📤 Upload & OCR
+
+### `/upload`
+**Description:**  
+(Stub) Intended to upload your PDF to the cloud (not implemented in this demo).
+
+**How to use:**  
+Type `/upload`.
+
+---
+
+### `/ocr`
+**Description:**  
+Extract text from all your uploaded images using OCR and display it in chat.
+
+**How to use:**  
+Type `/ocr`.
+
+---
+
+## 🌐 Language & Stats
+
+### `/language <code>`
+**Description:**  
+Change the bot language for your session. Supported: `en`, `es`, `de`, `fr`, `hi`.
+
+**How to use:**  
+Type `/language en` or `/language hi`.
+
+---
+
+### `/stats`
+**Description:**  
+Show your current session's statistics: number of images, text pages, and settings.
+
+**How to use:**  
+Type `/stats`.
+
+---
+
+## 👥 Group Session (Stub)
+
+### `/startgroup`
+**Description:**  
+(Stub) Intended to start a group session (not implemented in this demo).
+
+**How to use:**  
+Type `/startgroup`.
+
+---
+
+## 📷 Sending Images
+
+**How to use:**  
+- Simply upload JPG or PNG images as photos or files in the chat.
+- They will be saved to your session for PDF conversion.
+
+---
+
+## ℹ️ Notes
+
+- You can mix images and text pages; the order is preserved.
+- Images and settings are session-based: cleared after `/endsession`.
+- Use `/help` anytime to see this guide in Telegram.
+
+---
