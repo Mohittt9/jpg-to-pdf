@@ -1,12 +1,6 @@
 from telegram.ext import CommandHandler, MessageHandler, filters, InlineQueryHandler
-import image_manager
-import pdf_converter
-import ocr_utils
-import drive_upload
-import inline
 
 def register(app):
-    # Core commands
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("help", help_cmd))
     app.add_handler(CommandHandler("convert", convert))
@@ -24,83 +18,65 @@ def register(app):
     app.add_handler(CommandHandler("language", set_language))
     app.add_handler(CommandHandler("startgroup", start_group))
     app.add_handler(CommandHandler("endsession", end_session))
-
-    # Image/file handler
-    app.add_handler(MessageHandler(filters.PHOTO | filters.Document.IMAGE, image_manager.handle_image))
-    # Inline support
-    app.add_handler(InlineQueryHandler(inline.inline_query))
-
-# Implement each handler below (stubs for now)
+    app.add_handler(MessageHandler(filters.PHOTO | filters.Document.IMAGE, handle_image))
+    app.add_handler(InlineQueryHandler(inline_query))
 
 async def start(update, context):
     await update.message.reply_text("Welcome! Send JPG/PNG images. Use /convert to get a PDF. Send /help for options.")
 
 async def help_cmd(update, context):
-    # List all commands and features
     await update.message.reply_text(
-        "/start - Start the bot\n"
-        "/convert - Convert sent images to PDF\n"
-        "/list - List uploaded images\n"
-        "/remove <n> - Remove image by index\n"
-        "/move <from> <to> - Reorder images\n"
-        "/options - Set PDF/page options\n"
-        "/title <text> - Add title page\n"
-        "/watermark <text> - Add watermark\n"
-        "/addtext <text> - Add text page\n"
-        "/password <pass> - Set PDF password\n"
-        "/upload - Upload PDF to cloud\n"
-        "/ocr - Extract text from images\n"
-        "/stats - Your usage stats\n"
-        "/language <code> - Change bot language\n"
-        "/startgroup - Start group PDF session\n"
-        "/endsession - End current session"
+        "Help: /convert, /list, /remove, /move, /options, /title, /watermark, /addtext, /password, /upload, /ocr, /stats, /language, /startgroup, /endsession."
     )
 
 async def convert(update, context):
-    # Gather images, options, call pdf_converter, send PDF, clean up
-    await pdf_converter.convert_images_to_pdf(update, context)
+    await update.message.reply_text("Convert command received! (PDF creation not yet implemented.)")
 
 async def list_images(update, context):
-    await image_manager.list_images(update, context)
+    await update.message.reply_text("List command received! (Listing images not yet implemented.)")
 
 async def remove_image(update, context):
-    await image_manager.remove_image(update, context)
+    await update.message.reply_text("Remove command received! (Removing images not yet implemented.)")
 
 async def move_image(update, context):
-    await image_manager.move_image(update, context)
+    await update.message.reply_text("Move command received! (Moving images not yet implemented.)")
 
 async def set_options(update, context):
-    await pdf_converter.set_options(update, context)
+    await update.message.reply_text("Options command received! (Options feature not yet implemented.)")
 
 async def set_title(update, context):
-    await pdf_converter.set_title(update, context)
+    await update.message.reply_text("Title command received! (Title feature not yet implemented.)")
 
 async def set_watermark(update, context):
-    await pdf_converter.set_watermark(update, context)
+    await update.message.reply_text("Watermark command received! (Watermark feature not yet implemented.)")
 
 async def add_text_page(update, context):
-    await pdf_converter.add_text_page(update, context)
+    await update.message.reply_text("AddText command received! (Adding text page not yet implemented.)")
 
 async def set_pdf_password(update, context):
-    await pdf_converter.set_pdf_password(update, context)
+    await update.message.reply_text("Password command received! (Password protection not yet implemented.)")
 
 async def upload_pdf(update, context):
-    await drive_upload.upload_pdf(update, context)
+    await update.message.reply_text("Upload command received! (Cloud upload not yet implemented.)")
 
 async def ocr_images(update, context):
-    await ocr_utils.ocr_images(update, context)
+    await update.message.reply_text("OCR command received! (OCR not yet implemented.)")
 
 async def show_stats(update, context):
-    await image_manager.show_stats(update, context)
+    await update.message.reply_text("Stats command received! (Usage stats not yet implemented.)")
 
 async def set_language(update, context):
-    # Change user's preferred language
-    pass
+    await update.message.reply_text("Language command received! (Language change not yet implemented.)")
 
 async def start_group(update, context):
-    # Initiate group session
-    pass
+    await update.message.reply_text("StartGroup command received! (Group session not yet implemented.)")
 
 async def end_session(update, context):
-    # Clean up session for user or group
+    await update.message.reply_text("EndSession command received! (Session cleanup not yet implemented.)")
+
+async def handle_image(update, context):
+    await update.message.reply_text("Image received! (Image handling not yet implemented.)")
+
+async def inline_query(update, context):
+    # For inline queries, just return a placeholder result or do nothing for now
     pass
