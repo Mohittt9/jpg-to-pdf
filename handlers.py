@@ -1,14 +1,14 @@
 import os
+import io
 import tempfile
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import CommandHandler, MessageHandler, filters, InlineQueryHandler, CallbackQueryHandler
 
-from pdf2image import convert_from_bytes
 from PyPDF2 import PdfWriter, PdfReader
 from PIL import Image, ImageDraw, ImageFont
 import pytesseract
 
-# In-memory session store (for simplicity; use persistent db for production)
+# In-memory user session storage (for demo; replace with persistent storage for production)
 user_sessions = {}
 
 def register(app):
@@ -34,7 +34,7 @@ def register(app):
     app.add_handler(InlineQueryHandler(inline_query))
 
 #######################
-# Helper functions
+# Helper/session functions
 #######################
 
 def get_session(user_id):
@@ -88,7 +88,7 @@ def move_image_by_index(user_id, old_idx, new_idx):
         return True
     return False
 
-def add_text_page(user_id, text):
+def add_text_page_to_session(user_id, text):
     session = get_session(user_id)
     session["text_pages"].append(text)
 
@@ -163,10 +163,7 @@ async def convert(update, context):
 
     # Convert images to PDF pages
     for img_entry in images:
-        img = Image.open(tempfile.SpooledTemporaryFile())
-        img.fp.write(img_entry["image"])
-        img.fp.seek(0)
-        img = Image.open(img.fp)
+        img = Image.open(io.BytesIO(img_entry["image"]))
         if watermark:
             img = add_watermark_to_image(img, watermark)
         temp = tempfile.NamedTemporaryFile(suffix=".pdf", delete=False)
@@ -287,7 +284,7 @@ async def add_text_page(update, context):
     if not text:
         await update.message.reply_text("Usage: /addtext <your text>")
         return
-    add_text_page(user_id, text)
+    add_text_page_to_session(user_id, text)
     await update.message.reply_text("✅ Text page added.")
 
 async def set_pdf_password(update, context):
@@ -423,8 +420,8 @@ def text_to_image(text):
     except Exception:
         font = ImageFont.load_default()
     lines = text.split('\n')
-    width = max([font.getsize(line)[0] for line in lines]) + 40
-    height = font_size * len(lines) + 40
+    width = max([font.getsize(line)[0] for line in lines]) + 40 if lines else 200
+    height = font_size * len(lines) + 40 if lines else 100
     image = Image.new("RGB", (width, height), "white")
     draw = ImageDraw.Draw(image)
     y = 20
